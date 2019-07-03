@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- name is just a string -->
+<!-- basedir="path" is not required. if not present, defaults to the parent directory of the buildfile -->
+<project name="Hello Ctx" default="main" basedir="../">
+	<echo>basedir=${basedir}</echo>
+	
+	<!-- edit location with your workspace root directory : required for building -->
+	<!-- by default assume workspace is one level above baseDir -->
+	<property name="workspace_eclipse" location="${basedir}/.." />
+	<echo>workspace_eclipse=${workspace_eclipse}</echo>
+		
+	
+	<!-- directory with libraries required by build file -->		
+	<property name="libsbuild" location="build-libs" />
+	<property name="antenna" location="${libsbuild}/antenna-simplepreprocessor1.1-bin-with-src.jar" />
+	<property name="proguard" location="${libsbuild}/proguard-5.3.3-bin-with-src.jar" />
+			
+	<!-- build_dir is safe to delete -->	
+	<property name="build_dir" location="build-dir" />
+
+	
+	<!-- using eclipse projects is faster when deving   -->
+	<!-- its also used when obfuscating a whole code base -->
+	<!-- needed when pre-processing modules -->
+	<property name="workspace_src" location="${workspace_eclipse}" />
+
+	<!-- here put all jars depedencies required by the project -->
+	<property name="libs" location="libs" />
+
+	<property name="src_dir" location="src" />
+	<property name="src_res" location="res" />
+
+	<property name="project_name" value="Hello Ctx" />
+	<property name="jar_name" value="HelloCtx" />
+
+	<property name="main_package" value="pasa.cbentley.app.hello" />
+	<property name="main_class" value="${main_package}.run.RunHelloCtx" />
+	<property name="src_preprocessed" location="src_preprocessed" />
+					
+					
+
+	<!-- path to jar/zip libraries of *.class files -->
+	<path id="classpath">
+		<!-- <pathelement location="${libs}/extra.jar" /> -->
+	</path>
+
+	<taskdef resource="proguard/ant/task.properties" classpath="${proguard}}" />
+
+	<target name="init">
+		<echoproperties />
+	</target>
+
+	<target name="main_preprocessing" depends="init, clean,  create_classes_dir,prepro, compilePreProcessed, jar, obfuscate" description="Create project">
+		<echo>Creating project with preprocessing.</echo>
+	</target>
+			
+	<target name="main" depends="init, clean, create_classes_dir,  compile, jar, obfuscate" description="Create project">
+		<echo>Creating project with no preprocessing.</echo>
+	</target>
+
+	<target name="create_classes_dir" depends="init">
+		<mkdir dir="${build_dir}/classes-ant" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${build_dir}/classes-ant" />
+		<delete dir="${src_preprocessed}" />
+	</target>
+	
+	<!-- ignore warning. as long as antenna property is correctly defined above, it will find the task at runtime -->		
+	<taskdef name="simplepreprocess" classname="antenna.preprocessor.task.SimplePreprocess"  classpath="${antenna}" />
+	
+	<target name="prepro" description="PreProcess target" >
+		<delete dir="${src_preprocessed}" />
+		<mkdir dir="${src_preprocessed}" />
+		<simplepreprocess destdir="${src_preprocessed}" debuglevel="none" encoding="UTF-8" verbose="false" 
+				srcdir="${src_dir}">
+		</simplepreprocess>
+		<simplepreprocess destdir="${src_preprocessed}" debuglevel="none" encoding="UTF-8" verbose="false" 
+				srcdir="${workspace_src}/pasa_cbentley_core_src4/src">
+		</simplepreprocess>
+	</target>
+
+	<target name="compilePreProcessed" description="Compile Preprocessed files">
+
+		<javac destdir="${build_dir}/classes-ant" source="1.8" target="1.8">
+			<src path="${src_preprocessed}" />
+			<src path="${src_res}" />
+			<!-- insert here source path of resources not being pre processed -->
+			<!-- example:	<src path="${workspace_src}/pasa_cbentley_swing/res" /> -->
+
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="compile" description="Compile target">
+
+		<javac destdir="${build_dir}/classes-ant" source="1.8" target="1.8">
+			<src path="${src_dir}" />
+			<src path="${src_res}" />
+			<!-- insert here source path of java projects in same workspace -->
+			<src path="${workspace_src}/pasa_cbentley_core_src4/src" />
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="jar" description="Create a jar for the ${project_name} project">
+		<jar jarfile="${jar_name}.jar" basedir="${build_dir}/classes-ant">
+			<fileset dir="${src_res}" excludes="*/.java" />
+			<manifest>
+				<attribute name="Main-Class" value="${main_class}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="obfuscate" depends="jar" description="Obfuscate compiled classes">
+		<proguard>
+			  	-libraryjars "${java.home}\lib\rt.jar"
+			  	-injars      ${jar_name}.jar
+			  	-outjars     ${jar_name}_obf.jar
+				-dontwarn
+			  	-keep public class ${main_class} {
+					public static void main(java.lang.String[]);
+				  }
+		</proguard>
+	</target>
+
+	<!--	http://alvinalexander.com/java/obfuscate-java-class-files-proguard-ant-build-decompile
+	-->
+</project>

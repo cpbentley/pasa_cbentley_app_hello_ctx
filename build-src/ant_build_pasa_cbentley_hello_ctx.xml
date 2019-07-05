@@ -78,6 +78,7 @@
 
 	<target name="main" depends="" description="Show Building Options and current properties">
 		<echoproperties />
+		<echo>java.home=${java.home}</echo>
 		<echo>main_pro -> Buidling with preprocessing. All debug statements will be removed</echo>
 		<echo>main_dev -> Building with no preprocessing. All debug statements will run</echo>
 	</target>
@@ -103,7 +104,7 @@
 	</target>
 
 	<target name="compilePreProcessed" description="Compile Preprocessed files">
-		<javac destdir="${build_dir}/classes-ant" source="1.8" target="1.8">
+		<javac destdir="${build_dir}/classes-ant" source="1.8" target="1.8" encoding="UTF-8">
 			<src path="${src_preprocessed}" />
 			<src path="${src_res}" />
 			<!-- insert here source path of resources not being pre processed -->
@@ -114,7 +115,7 @@
 	</target>
 
 	<target name="compile" description="Compile target">
-		<javac destdir="${build_dir}/classes-ant" source="1.8" target="1.8">
+		<javac destdir="${build_dir}/classes-ant" source="1.8" target="1.8" encoding="UTF-8">
 			<src path="${src_dir}" />
 			<!-- Warning: also include all resource folders TODO merge with preprocessed files-->
 			<src path="${src_res}" />

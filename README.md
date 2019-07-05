@@ -58,7 +58,7 @@ Right click on it and select Run As
 
 ![eclipse_run_as.jpg](/res/tutorial/eclipse_run_as.jpg "Optional title")
 
- #### <span style="color:#CC007F">Build a Jar with Ant </span>
+ #### Build a Jar with Ant
 
 * The Build process is always a weak link. Sure the source is open but if the build process is corrupted, the builder can insert anything in the final executable of the program.
 

@@ -3,10 +3,10 @@
 project id | pasa_cbentley_app_hello_ctx
 ------------ | -------------
 author | Charles-Philip Bentley
- | ![license MIT](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=plastic)
+license | ![license MIT](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=plastic)
 tags | Java Ant
 created | June 2019
- | ![GitHub last commit](https://img.shields.io/github/last-commit/cpbentley/pasa_cbentley_app_hello_ctx.svg?style=plastic)
+modified | ![GitHub last commit](https://img.shields.io/github/last-commit/cpbentley/pasa_cbentley_app_hello_ctx.svg?style=plastic)
 
 Quote by Антон Павлович Чехов
 > Умный любит учитьчся, а дурак - учить.
@@ -16,9 +16,8 @@ Quote by Антон Павлович Чехов
 Test the build process with core.src4 and ant.
 
 ## Table of Contents
-  * [Setup](#installation)
+  * [Installation](#installation)
   * [Eclipse Run](#run-within-eclipse)
-  * [Setup](#setup)
 
 ***
 
@@ -30,9 +29,11 @@ Test the build process with core.src4 and ant.
 
 #### Setup <a name="setup"></a>
 
-* Install Java 8 **JDK** (author used 191). You need the Java _Development_ Kit, which includes the Runtime (JRE)
-* Install Eclipse (author used 2019-06). [Eclipse Download Page](https://github.com/upstage/ "Visit Upstage!")
-* When launching Eclipse, create or use an existing workspace where you will check out all the github repos.
+* Install Java 8 **JDK** (author used 191). You need the Java _Development_ Kit, which includes the Runtime (JRE). [Oracle JDK 8 Download Page](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html "Lastest JDK 8 from Oracle")
+* Install Eclipse (author used 2019-06). [Eclipse Download Page](https://www.eclipse.org/downloads/ "https://www.eclipse.org/downloads/")
+* When launching Eclipse, create a workspace or use an existing workspace where you will check out all the github repos.
+
+* An Eclipse workspace compiles continuously all its projects and their files. Errors are reported in the problems view.
 
 * Import the github repositories listed below. Following the given order, you should not see any compilation errors.
 
@@ -102,11 +103,20 @@ Or by double clicking on the file (Windows)
     1. Make sure Eclipse and Ant shipping with it are \<legit\>.
     2. If your security protocol requires it, inspect and rebuild the jars in build-libs folder.
 
-# This is an  tag
-## This is an \<H2\> tag
-###### This is an \<h6\> tag
+## Tasks List
 
-- [x] this is a complete item
-- [ ] this is an incomplete item
-- [x] @mentions, #refs, [links](),**formatting**, and <del>tags</del> supported
-- [x] list syntax required (any unordered or
+- [x] Pages Github
+- [ ] Optimize ant build file
+- [ ] Test process by external user on Linux
+- [ ] Test process by external user on Mac
+
+[table of contents](#table-of-contents)
+
+## Links
+
+ * [Proguard Official Sourceforge Repository](https://sourceforge.net/projects/proguard/ "Proguard on sourceforge.net")
+ * [Antenna](http://antenna.sourceforge.net/wtkpreprocess.php)
+ * [Apache Ant](https://ant.apache.org)
+
+
+[table of contents](#table-of-contents)

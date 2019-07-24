@@ -55,7 +55,8 @@ Test the build process with core.src4 and ant.
 
 num | id | Right Click -> Copy Link Address
 ----| -- | -------------
-1 | pasa_cbentley_core_src4 | [Import Link](https://github.com/cpbentley/pasa_cbentley_core_src4)
+1 | java_src4_compat_j2se | [Import Link](https://github.com/cpbentley/java_src4_compat_j2se)
+2 | pasa_cbentley_core_src4 | [Import Link](https://github.com/cpbentley/pasa_cbentley_core_src4)
 final | pasa_cbentley_app_hello_ctx | [Import Link](https://github.com/cpbentley/pasa_cbentley_app_hello_ctx)
 
 
